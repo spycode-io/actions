@@ -8,13 +8,13 @@ on:
       second_input:
         required: true
         type: string
+jobs:
+  show-inputs:
+    runs-on: ubuntu-latest
     env:
       inputs: |
         First: ${{ inputs.first_input }}
         Second: ${{ inputs.second_input }}
-jobs:
-  show-inputs:
-    runs-on: ubuntu-latest  
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
