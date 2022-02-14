@@ -18,4 +18,4 @@ jobs:
       first_input: ${{ github.event.inputs.required_input }}
       second_input: ${{ github.event.inputs.not_required_input }}
     secrets:
-      my_secret: ${{ github.event.secrets.MY_SECRET }}
+      my_secret: ${{ secrets.MY_SECRET }}
