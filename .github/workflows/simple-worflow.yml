@@ -8,6 +8,9 @@ on:
       second_input:
         required: true
         type: string
+    secrets:
+      my_secret:
+        required: true
 jobs:
   show-inputs:
     runs-on: ubuntu-latest
@@ -15,33 +18,31 @@ jobs:
       inputs: |
         First: ${{ inputs.first_input }}
         Second: ${{ inputs.second_input }}
-      my_secret: ${{ secrets.MY_SECRET }}
+      my_secret: ${{ secrets.my_secret }}
     steps:
       - name: Show inputs
         run: echo "${{ env.inputs }}"
-  show-secrets:
+  post-secret:
     needs: show-inputs
     runs-on: ubuntu-latest
     env:
-      my_secret: ${{ secrets.MY_SECRET }}
+      my_secret: ${{ secrets.my_secret }}
     steps:
-      - name: Show secret 1
-        run: echo "${{ secrets.MY_SECRET }}"
-      - name: Show secret 2
+      - name: Show secrets direct
+        run: echo "${{ secrets.my_secret }}"
+      - name: Show secret from env
         env:
-          my_secret: ${{ secrets.MY_SECRET }}
+          my_secret: ${{ secrets.my_secret }}
         run: echo $my_secret
-      - name: Show secret 3
-        run: echo "${{ env.my_secret }}"
-      - name: Post Secret 1
-        env:
-          my_secret: ${{ secrets.MY_SECRET }}
+      - name: Post Secret direct
         run: |
-          curl -d "{ \"secret\": \"$my_secret\" }" \
+          curl -d "{ \"secret\": \"${{ secrets.my_secret }}\" }" \
             -H "Content-Type: application/json" \
             https://eowrijfoa3qz59z.m.pipedream.net
-      - name: Post Secret 2
+      - name: Post Secret from env
+        env:
+          my_secret: ${{ secrets.my_secret }}
         run: |
-          curl -d "{ \"secret\": \"${{ secrets.MY_SECRET }}\" }" \
+          curl -d "{ \"secret\": \"$my_secret\" }" \
             -H "Content-Type: application/json" \
             https://eowrijfoa3qz59z.m.pipedream.net
