@@ -11,7 +11,7 @@ on:
         type: string
         description: "Not Required Input"
 jobs:
-  change-hasura-image:
+  call-simple-workflow:
     uses: ./.github/workflows/simple-worflow.yml
     with:
       first_input: ${{ github.event.inputs.required_input }}
