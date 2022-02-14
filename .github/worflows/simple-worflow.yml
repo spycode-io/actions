@@ -1,0 +1,26 @@
+name: Simple Worflow
+on:
+  workflow_call:
+    inputs:
+      first_input:
+        required: true
+        type: string
+      second_input:
+        required: true
+        type: string
+    env:
+      inputs: |
+        First: ${{ inputs.first_input }}
+        Second: ${{ inputs.second_input }}
+jobs:
+  show-inputs:
+    runs-on: ubuntu-latest  
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+      - name: Show inputs
+        run: ${{ env.inputs }}
+      - name: Show secret
+        run: ${{ secrets.MY_INPUT }}

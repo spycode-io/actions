@@ -1,0 +1,18 @@
+name: Manual Workflow
+on:
+  workflow_dispatch:
+    inputs:
+      required_input:
+        required: true
+        type: string
+        description: "Required Input"
+      not_required_input:
+        required: false
+        type: string
+        description: "Not Required Input"
+jobs:
+  change-hasura-image:
+    uses: ./.github/workflows/simple-worflow.yml
+    with:
+      first_input: ${{ github.event.inputs.required_input }}
+      second_input: ${{ github.event.inputs.not_required_input }}
