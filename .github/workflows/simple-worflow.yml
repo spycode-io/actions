@@ -17,11 +17,26 @@ jobs:
         Second: ${{ inputs.second_input }}
       my_secret: ${{ secrets.MY_SECRET }}
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
-        with:
-          ref: ${{ github.head_ref }}
       - name: Show inputs
         run: echo "${{ env.inputs }}"
-      - name: Show secret
+      - name: Show secret 1
+        env:
+          my_secret: ${{ secrets.MY_SECRET }}
+        run: echo $my_secret
+      - name: Show secret 2
         run: echo "$my_secret"
+  show-secrets:
+    needs: show-inputs
+    runs-on: ubuntu-latest
+    env:
+      my_secret: ${{ secrets.MY_SECRET }}
+    steps:
+      - name: Show secret 1
+        run: echo "${{ secrets.MY_SECRET }}"
+      - name: Show secret 2
+        env:
+          my_secret: ${{ secrets.MY_SECRET }}
+        run: echo $my_secret
+      - name: Show secret 3
+        run: echo "${{ env.my_secret }}"
+     
