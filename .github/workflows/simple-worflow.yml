@@ -21,6 +21,6 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
       - name: Show inputs
-        run: ${{ env.inputs }}
+        run: echo "${{ env.inputs }}"
       - name: Show secret
-        run: ${{ secrets.MY_INPUT }}
+        run: echo "${{ secrets.MY_SECRET }}"
