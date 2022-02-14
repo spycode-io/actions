@@ -9,6 +9,7 @@ on:
       not_required_input:
         required: false
         type: string
+        default: "Defaul Value"
         description: "Not Required Input"
 jobs:
   call-simple-workflow:
